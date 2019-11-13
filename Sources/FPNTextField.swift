@@ -399,14 +399,16 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 	}
 
     @objc func showSearchController() {
-		if let countries = countryPicker.countries {
-			let searchCountryViewController = FPNSearchCountryViewController(countries: countries)
-			let navigationViewController = UINavigationController(rootViewController: searchCountryViewController)
-
-			searchCountryViewController.delegate = self
-
-			parentViewController?.present(navigationViewController, animated: true, completion: nil)
-		}
+        if let countries = countryPicker.countries {
+            let searchCountryViewController = FPNSearchCountryViewController(countries: countries)
+            let navigationViewController = UINavigationController(rootViewController: searchCountryViewController)
+            
+            searchCountryViewController.delegate = self
+            if #available(iOS 13.0, *) {
+                searchCountryViewController.modalPresentationStyle = .fullScreen
+            }
+            parentViewController?.present(navigationViewController, animated: true, completion: nil)
+        }
 	}
 
 	private func getToolBar(with items: [UIBarButtonItem]) -> UIToolbar {
