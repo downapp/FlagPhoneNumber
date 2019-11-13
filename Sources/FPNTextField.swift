@@ -190,7 +190,9 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 
 	@objc private func displayNumberKeyBoard() {
 		inputView = nil
-		inputAccessoryView = textFieldInputAccessoryView
+        if let _ = textFieldInputAccessoryView {
+            inputAccessoryView = textFieldInputAccessoryView
+        }
 		tintColor = .gray
 		reloadInputViews()
 	}
