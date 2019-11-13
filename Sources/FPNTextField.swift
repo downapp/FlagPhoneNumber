@@ -114,7 +114,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 	private func setupFlagButton() {
 		flagButton.imageView?.contentMode = .scaleAspectFit
 		flagButton.accessibilityLabel = "flagButton"
-		flagButton.addTarget(self, action: #selector(displayCountryKeyboard), for: .touchUpInside)
+		flagButton.addTarget(self, action: #selector(showSearchController), for: .touchUpInside)
 		flagButton.translatesAutoresizingMaskIntoConstraints = false
 		flagButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
 	}
@@ -389,7 +389,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 		return phoneNumber.replacingOccurrences(of: "\(dialCode) ", with: "").replacingOccurrences(of: "\(dialCode)", with: "")
 	}
 
-	private func showSearchController() {
+    @objc func showSearchController() {
 		if let countries = countryPicker.countries {
 			let searchCountryViewController = FPNSearchCountryViewController(countries: countries)
 			let navigationViewController = UINavigationController(rootViewController: searchCountryViewController)
