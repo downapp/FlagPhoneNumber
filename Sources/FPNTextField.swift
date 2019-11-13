@@ -104,7 +104,8 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 		setupPhoneCodeTextField()
 		setupLeftView()
 		setupCountryPicker()
-
+        setupAccessoryView()
+        
 		keyboardType = .numberPad
 		autocorrectionType = .no
 		addTarget(self, action: #selector(didEditText), for: .editingChanged)
@@ -180,6 +181,12 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 			countryPicker.setCountry(firstCountry.code)
 		}
 	}
+    
+    private func setupAccessoryView() {
+        let doneBar = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width:self.frame.size.width, height: 44)))
+        doneBar.setItems(getPhoneNumberBarButtonItems(), animated: true)
+        inputAccessoryView = doneBar
+    }
 
 	@objc private func displayNumberKeyBoard() {
 		inputView = nil
@@ -425,7 +432,19 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 		}
 		return [space, doneButton]
 	}
+    
+    
+    private func getPhoneNumberBarButtonItems() -> [UIBarButtonItem] {
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeKeyboard))
+        return [done]
+    }
 
+    
+    @objc func closeKeyboard() {
+        self.endEditing(true)
+    }
+    
+    
 	private func updatePlaceholder() {
 		if let countryCode = selectedCountry?.code {
 			do {
