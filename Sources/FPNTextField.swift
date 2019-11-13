@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ValidPhoneNumberHandler = (Bool) -> (Void)
+
 open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 
 	/// The size of the flag button
@@ -65,6 +67,8 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 		}
 	}
 
+    var numberValidationHandler: ValidPhoneNumberHandler?
+    
 	/// If set, a search button appears in the picker inputAccessoryView to present a country search view controller
 	@IBOutlet public var parentViewController: UIViewController?
 
@@ -302,6 +306,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 					text = remove(dialCode: phoneCode, in: inputString)
 				}
 				(delegate as? FPNTextFieldDelegate)?.fpnDidValidatePhoneNumber(textField: self, isValid: true)
+                numberValidationHandler?(true)
 			} else {
 				nbPhoneNumber = nil
 
@@ -311,6 +316,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 					}
 				}
 				(delegate as? FPNTextFieldDelegate)?.fpnDidValidatePhoneNumber(textField: self, isValid: false)
+                numberValidationHandler?(false)
 			}
 		}
 	}
