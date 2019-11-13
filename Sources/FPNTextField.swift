@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias ValidPhoneNumberHandler = (Bool) -> (Void)
+public typealias ValidPhoneNumberHandler = (Bool) -> (Void)
 
 open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 
@@ -67,7 +67,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
 		}
 	}
 
-    var numberValidationHandler: ValidPhoneNumberHandler?
+    open var numberValidationHandler: ValidPhoneNumberHandler?
     
 	/// If set, a search button appears in the picker inputAccessoryView to present a country search view controller
 	@IBOutlet public var parentViewController: UIViewController?
