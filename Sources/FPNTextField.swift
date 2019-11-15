@@ -69,7 +69,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
     
     open var numberValidationHandler: ValidPhoneNumberHandler?
     
-    open var displayOnlyCountryName: Bool = false
+    open var displayOnlyCountryName: Bool = true
     
     /// If set, a search button appears in the picker inputAccessoryView to present a country search view controller
     @IBOutlet public var parentViewController: UIViewController?
@@ -479,7 +479,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         if let countryCode = selectedCountry?.code {
             do {
                 let example = try phoneUtil.getExampleNumber(countryCode.rawValue)
-                let phoneNumber = "+\(example.countryCode.stringValue)\(example.nationalNumber.stringValue)"
+                let phoneNumber = "+\(example.countryCode.stringValue) (\(selectedCountry!.name))"
                 
                 if let inputString = formatter?.inputString(phoneNumber) {
                     placeholder = remove(dialCode: "+\(example.countryCode.stringValue)", in: inputString)
@@ -500,7 +500,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         (delegate as? FPNTextFieldDelegate)?.fpnDidSelectCountry(name: country.name, dialCode: country.phoneCode, code: country.code.rawValue)
         selectedCountry = country
         if displayOnlyCountryName {
-            text = "\(country.code.rawValue) (\(country))"
+            text = "\(country.phoneCode) (\(country))"
         }
     }
     
