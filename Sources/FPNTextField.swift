@@ -143,7 +143,6 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         }
         
         leftView?.addSubview(flagButton)
-        leftView?.addSubview(phoneCodeTextField)
         
         
         flagWidthConstraint = NSLayoutConstraint(item: flagButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: flagButtonSize.width)
@@ -155,10 +154,6 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         NSLayoutConstraint(item: flagButton, attribute: .centerY, relatedBy: .equal, toItem: leftView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
         
         NSLayoutConstraint(item: flagButton, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: phoneCodeTextField, attribute: .leading, relatedBy: .equal, toItem: flagButton, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: phoneCodeTextField, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: phoneCodeTextField, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: phoneCodeTextField, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
     }
     
     private func setUpRightView() {
@@ -500,7 +495,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         (delegate as? FPNTextFieldDelegate)?.fpnDidSelectCountry(name: country.name, dialCode: country.phoneCode, code: country.code.rawValue)
         selectedCountry = country
         if displayOnlyCountryName {
-            text = "\(country.phoneCode) (\(country))"
+            text = "\(country.phoneCode) (\(country.name))"
         }
     }
     
