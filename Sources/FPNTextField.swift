@@ -107,16 +107,6 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         setupLeftView()
         setupCountryPicker()
         setupAccessoryView()
-        if displayOnlyCountryName {
-            setUpRightView()
-        }
-        
-        keyboardType = .numberPad
-        autocorrectionType = .no
-        addTarget(self, action: #selector(didEditText), for: .editingChanged)
-        if !displayOnlyCountryName{
-            addTarget(self, action: #selector(displayNumberKeyBoard), for: .touchDown)
-        }
     }
     
     private func setupFlagButton() {
@@ -474,13 +464,8 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         if let countryCode = selectedCountry?.code {
             do {
                 let example = try phoneUtil.getExampleNumber(countryCode.rawValue)
-                let phoneNumber = "+\(example.countryCode.stringValue) (\(selectedCountry!.name))"
-                
-                if let inputString = formatter?.inputString(phoneNumber) {
-                    placeholder = remove(dialCode: "+\(example.countryCode.stringValue)", in: inputString)
-                } else {
-                    placeholder = nil
-                }
+                let phoneNumber = "+\(example.countryCode.stringValue)  (\(selectedCountry!.name))"
+                placeholder = phoneNumber
             } catch _ {
                 placeholder = nil
             }
@@ -495,7 +480,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         (delegate as? FPNTextFieldDelegate)?.fpnDidSelectCountry(name: country.name, dialCode: country.phoneCode, code: country.code.rawValue)
         selectedCountry = country
         if displayOnlyCountryName {
-            text = "\(country.phoneCode) (\(country.name))"
+            text = "\(country.phoneCode)  (\(country.name))"
         }
     }
     

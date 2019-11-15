@@ -48,11 +48,7 @@ class FPNSearchCountryViewController: UITableViewController, UISearchResultsUpda
 	}
 
     @objc private func dismissController() {
-        if self.navigationController?.viewControllers.count ?? 0 > 1 {
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
+        self.navigationController!.popViewController(animated: true)
     }
 
 	private func initSearchBarController() {
