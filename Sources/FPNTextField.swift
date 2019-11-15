@@ -107,6 +107,10 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
         setupLeftView()
         setupCountryPicker()
         setupAccessoryView()
+        if displayOnlyCountryName {
+            setUpRightView()
+        }
+        addTarget(self, action: #selector(displayNumberKeyBoard), for: .touchDown)
     }
     
     private func setupFlagButton() {
@@ -199,12 +203,7 @@ open class FPNTextField: UITextField, FPNCountryPickerDelegate, FPNDelegate {
     }
     
     @objc private func displayNumberKeyBoard() {
-        inputView = nil
-        if let _ = textFieldInputAccessoryView {
-            inputAccessoryView = textFieldInputAccessoryView
-        }
-        tintColor = .gray
-        reloadInputViews()
+        showSearchController()
     }
     
     @objc private func displayCountryKeyboard() {
